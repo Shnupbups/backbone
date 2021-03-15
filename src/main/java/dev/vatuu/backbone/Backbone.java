@@ -62,7 +62,7 @@ public class Backbone implements DedicatedServerModInitializer {
                 info.addEnchantment(Enchantments.MENDING, 1);
             } else {
                 info.addEnchantment(Enchantments.AQUA_AFFINITY, 10);
-                info.setLapisCost(12);
+                info.setCost(12);
             }
         });
     }
