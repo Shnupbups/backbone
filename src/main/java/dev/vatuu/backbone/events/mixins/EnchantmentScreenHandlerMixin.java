@@ -34,8 +34,8 @@ public abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
 	}
 
 	@Inject(method = "Lnet/minecraft/screen/EnchantmentScreenHandler;method_17410(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/PlayerEntity;ILnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/screen/EnchantmentScreenHandler;generateEnchantments(Lnet/minecraft/item/ItemStack;II)Ljava/util/List;"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-	private void enchantItem(ItemStack item, int id, PlayerEntity enchanter, int lapisCost, ItemStack lapis, World world, BlockPos pos, CallbackInfo ci, ItemStack output, List<EnchantmentLevelEntry> enchantmentsToAdd) {
-		EnchantmentEvents.EnchantItemInfo info = new EnchantmentEvents.EnchantItemInfo(world, pos, world.getBlockState(pos), enchanter, item, lapis, output, enchantmentsToAdd, this.enchantmentPower[id], lapisCost, id, this.seed.get());
+	private void enchantItem(ItemStack item, int id, PlayerEntity enchanter, int cost, ItemStack lapis, World world, BlockPos pos, CallbackInfo ci, ItemStack output, List<EnchantmentLevelEntry> enchantmentsToAdd) {
+		EnchantmentEvents.EnchantItemInfo info = new EnchantmentEvents.EnchantItemInfo(world, pos, world.getBlockState(pos), enchanter, item, lapis, output, enchantmentsToAdd, this.enchantmentPower[id], cost, id, this.seed.get());
 		EnchantmentEvents.ENCHANT_ITEM.invoker().enchantItem(info);
 		if(info.isCancelled()) ci.cancel();
 	}

@@ -22,10 +22,10 @@ public class EnchantmentEvents {
 		protected PlayerEntity enchanter;
 		protected ItemStack input,lapis,output;
 		protected List<EnchantmentLevelEntry> enchantmentsToAdd;
-		protected int experienceLevelCost,lapisCost,buttonId,seed;
+		protected int experienceLevelRequired,cost,buttonId,seed;
 		protected boolean cancelled = false;
 
-		public EnchantItemInfo(World world, BlockPos pos, BlockState enchantmentTableState, PlayerEntity enchanter, ItemStack input, ItemStack lapis, ItemStack output, List<EnchantmentLevelEntry> enchantmentsToAdd, int experienceLevelCost, int lapisCost, int buttonId, int seed) {
+		public EnchantItemInfo(World world, BlockPos pos, BlockState enchantmentTableState, PlayerEntity enchanter, ItemStack input, ItemStack lapis, ItemStack output, List<EnchantmentLevelEntry> enchantmentsToAdd, int experienceLevelRequired, int cost, int buttonId, int seed) {
 			this.world = world;
 			this.pos = pos;
 			this.enchantmentTableState = enchantmentTableState;
@@ -34,8 +34,8 @@ public class EnchantmentEvents {
 			this.lapis = lapis;
 			this.output = output;
 			this.enchantmentsToAdd = enchantmentsToAdd;
-			this.experienceLevelCost = experienceLevelCost;
-			this.lapisCost = lapisCost;
+			this.experienceLevelRequired = experienceLevelRequired;
+			this.cost = cost;
 			this.buttonId = buttonId;
 			this.seed = seed;
 		}
@@ -120,20 +120,38 @@ public class EnchantmentEvents {
 			return this.enchantmentsToAdd.stream().anyMatch((enchantmentLevelEntry) -> enchantmentLevelEntry.enchantment.equals(enchantment) && enchantmentLevelEntry.level == level);
 		}
 
-		public int getExperienceLevelCost() {
-			return experienceLevelCost;
+		/**
+		 * The amount of levels required to perform the enchantment.
+		 * Note that this is *not* the amount of levels *used* to perform the enchantment.
+		 * @return experience levels required
+		 */
+		public int getExperienceLevelRequired() {
+			return experienceLevelRequired;
 		}
 
-		public void setExperienceLevelCost(int experienceLevelCost) {
-			this.experienceLevelCost = experienceLevelCost;
+		/**
+		 * The amount of levels required to perform the enchantment.
+		 * Note that this is *not* the amount of levels *used* to perform the enchantment.
+		 */
+		public void setExperienceLevelRequired(int experienceLevelRequired) {
+			this.experienceLevelRequired = experienceLevelRequired;
 		}
 
-		public int getLapisCost() {
-			return this.lapisCost;
+		/**
+		 * The amount of levels and lapis used to perform the enchantment.
+		 * Note that this is *not* the amount of levels *required* to perform the enchantment.
+		 * @return cost
+		 */
+		public int getCost() {
+			return this.cost;
 		}
 
-		public void setLapisCost(int lapisCost) {
-			this.lapisCost = lapisCost;
+		/**
+		 * The amount of levels and lapis used to perform the enchantment.
+		 * Note that this is *not* the amount of levels *required* to perform the enchantment.
+		 */
+		public void setCost(int cost) {
+			this.cost = cost;
 		}
 
 		/**
