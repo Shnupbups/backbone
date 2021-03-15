@@ -2,6 +2,8 @@ package dev.vatuu.backbone;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+
+import dev.vatuu.backbone.events.EnchantmentEvents;
 import dev.vatuu.backbone.gambit.hud.GambitHUD;
 import dev.vatuu.backbone.gamestate.GamestateManager;
 import dev.vatuu.backbone.managers.BossbarManager;
@@ -13,7 +15,11 @@ import dev.vatuu.backbone.events.ServerTickEvents;
 import dev.vatuu.backbone.sam.Player1pxHeadModel;
 import dev.vatuu.backbone.sam.SamManager;
 import net.fabricmc.api.DedicatedServerModInitializer;
+
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.decoration.EndCrystalEntity;
+import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -48,6 +54,17 @@ public class Backbone implements DedicatedServerModInitializer {
                 hud.destroy();
         });
         CommandRegistrationCallback.EVENT.register(this::registerTestCommands);
+        EnchantmentEvents.ENCHANT_ITEM.register((info) -> {
+            if(info.getButtonId() == 2 && info.isEnchantmentBeingAdded(Enchantments.FORTUNE)) {
+                info.cancel();
+            } else if(info.isEnchantmentBeingAdded(Enchantments.UNBREAKING, 3)) {
+                info.removeEnchantment(Enchantments.UNBREAKING);
+                info.addEnchantment(Enchantments.MENDING, 1);
+            } else {
+                info.addEnchantment(Enchantments.AQUA_AFFINITY, 10);
+                info.setLapisCost(12);
+            }
+        });
     }
 
     private final Identifier MODEL = id("model");

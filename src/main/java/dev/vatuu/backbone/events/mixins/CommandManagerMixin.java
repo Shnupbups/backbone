@@ -17,7 +17,7 @@ public abstract class CommandManagerMixin {
     @Shadow @Final private CommandDispatcher<ServerCommandSource> dispatcher;
 
     @Inject(at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/CommandDispatcher;findAmbiguities(Lcom/mojang/brigadier/AmbiguityConsumer;)V"), method = "<init>")
-    private void fabric_addCommands(CommandManager.RegistrationEnvironment environment, CallbackInfo ci) {
+    private void addCommands(CommandManager.RegistrationEnvironment environment, CallbackInfo ci) {
         CommandRegistrationCallback.EVENT.invoker().register(this.dispatcher);
     }
 }
