@@ -19,7 +19,6 @@ public class EventFactory {
      * events created by this EventFactory. Use this if, for instance,
      * the profilingEnabled field changes.
      */
-    // TODO: Turn this into an event?
     public static void invalidate() {
         EventFactoryImpl.invalidate();
     }
@@ -49,7 +48,6 @@ public class EventFactory {
      * @param <T>            The listener type.
      * @return The Event instance.
      */
-    // TODO: Deprecate this once we have working codegen
     public static <T> Event<T> createArrayBacked(Class<T> type, T emptyInvoker, Function<T[], T> invokerFactory) {
         return EventFactoryImpl.createArrayBacked(type, emptyInvoker, invokerFactory);
     }

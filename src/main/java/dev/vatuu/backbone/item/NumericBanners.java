@@ -75,4 +75,13 @@ public enum NumericBanners {
                 meta.addPattern(patterns.get(i), isFontPattern.get(i) ? foreground : background);
             return meta.apply();
         }
+
+        public static NumericBanners getByNumber(int number) {
+                if(number < 0)
+                        return NumericBanners.ZERO;
+                if(number > 9)
+                        return NumericBanners.NINE;
+
+                return NumericBanners.values()[number];
+        }
 }
