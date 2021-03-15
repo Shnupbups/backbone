@@ -7,7 +7,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.s2c.play.EntityPositionS2CPacket;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.Collection;

@@ -1,7 +1,7 @@
 package dev.vatuu.backbone.entity.meta.mixin;
 
-import dev.vatuu.backbone.entity.meta.base.EntityMeta;
 import dev.vatuu.backbone.entity.meta.base.DecorationEntityMeta;
+import dev.vatuu.backbone.entity.meta.base.EntityMeta;
 import net.minecraft.entity.decoration.AbstractDecorationEntity;
 import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Mixin;

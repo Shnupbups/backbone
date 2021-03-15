@@ -11,7 +11,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.Packet;
-import net.minecraft.network.packet.s2c.play.*;
+import net.minecraft.network.packet.s2c.play.EntitiesDestroyS2CPacket;
+import net.minecraft.network.packet.s2c.play.EntityEquipmentUpdateS2CPacket;
+import net.minecraft.network.packet.s2c.play.EntityTrackerUpdateS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -121,11 +123,9 @@ public class ModelBone {
         return location.add(0 ,1 ,0);
     }
     private ItemStack getStackCustomModel()  {
-        ItemStack stack = new ItemStack(this.modelMaterial);
-        ItemMeta.Builder.create(this.modelMaterial)
-                .setCustomModel(this.customModelValue)
-                .applyToStack(stack);
-        return stack;
+        return ItemMeta.of(this.modelMaterial)
+                .setCustomModelValue(customModelValue)
+                .apply();
     }
 
     private void commandCreate(ServerPlayerEntity p) {

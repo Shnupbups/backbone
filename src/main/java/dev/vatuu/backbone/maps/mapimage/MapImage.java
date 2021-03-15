@@ -1,6 +1,8 @@
 package dev.vatuu.backbone.maps.mapimage;
 
 import dev.vatuu.backbone.entity.meta.ItemFrameEntityMeta;
+import dev.vatuu.backbone.entity.meta.base.EntityMeta;
+import dev.vatuu.backbone.item.meta.ItemMeta;
 import dev.vatuu.backbone.item.meta.MapItemMeta;
 import dev.vatuu.backbone.maps.MapView;
 import net.minecraft.entity.EntityType;
@@ -66,7 +68,7 @@ public class MapImage {
                 BlockPos loc = corner.mutableCopy();
                 loc.add(-ii, -i, 0);
                 ItemFrameEntity frame = EntityType.ITEM_FRAME.create(w);
-                ((ItemFrameEntityMeta)frame)
+                EntityMeta.<ItemFrameEntityMeta>getMeta(frame)
                         .setItem(getMap(mapViews[ii][i]))
                         .fixate(true)
                         .setDirection(Direction.NORTH)
@@ -76,7 +78,7 @@ public class MapImage {
     }
 
     private ItemStack getMap(MapView v) {
-        return MapItemMeta.Builder.create(v).applyToStack(new ItemStack(Items.FILLED_MAP));
+        return ItemMeta.<MapItemMeta>of(Items.FILLED_MAP).apply();
     }
 
     private void renderImage() {

@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.vatuu.backbone.item.meta.extensions.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "server": [
+    "BannerItemMixin",
+    "ItemMixin",
+    "MapItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,13 +1,8 @@
 package dev.vatuu.backbone.events.base;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.logging.log4j.core.Logger;
-import org.apache.logging.log4j.core.config.Loggers;
-import sun.security.util.ArrayUtil;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
@@ -64,7 +59,6 @@ public class ArrayBackendEvent<T> extends Event<T> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void unregister(T listener) {
         if(listener == null || handlers == null)
             return;

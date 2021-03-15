@@ -12,6 +12,10 @@ import dev.vatuu.backbone.entity.meta.base.EntityMeta;
 import dev.vatuu.backbone.events.CommandRegistrationCallback;
 import dev.vatuu.backbone.events.ServerLifecycleEvents;
 import dev.vatuu.backbone.events.ServerTickEvents;
+import dev.vatuu.backbone.gambit.hud.GambitHUD;
+import dev.vatuu.backbone.gamestate.GamestateManager;
+import dev.vatuu.backbone.item.NumericBanners;
+import dev.vatuu.backbone.managers.BossbarManager;
 import dev.vatuu.backbone.sam.Player1pxHeadModel;
 import dev.vatuu.backbone.sam.SamManager;
 import net.fabricmc.api.DedicatedServerModInitializer;
@@ -24,6 +28,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -119,7 +124,7 @@ public class Backbone implements DedicatedServerModInitializer {
                     })));
 
         dispatcher.register(
-                literal("hudtest")
+                literal("testhud")
                     .requires(src -> src.hasPermissionLevel(4))
                     .then(literal("hide")
                         .executes(ctx -> hideHud()))
@@ -127,6 +132,25 @@ public class Backbone implements DedicatedServerModInitializer {
                         .executes(ctx -> showHud(ctx.getSource().getWorld())))
                     .then(literal("random")
                         .executes(ctx -> updateHudRandom(ctx.getSource().getWorld()))));
+
+        dispatcher.register(
+                literal("testitem")
+                    .requires(src -> src.hasPermissionLevel(4))
+                    .executes(ctx -> {
+                        ServerPlayerEntity e = ctx.getSource().getPlayer();
+                        try {
+                            DyeColor d1 = DyeColor.BLACK;
+                            DyeColor d2 = DyeColor.PURPLE;
+                            e.inventory.setStack(14, NumericBanners.ZERO.getBannerItem(d2, d1));
+                            e.inventory.setStack(15, NumericBanners.TWO.getBannerItem(d2, d1));
+                            e.inventory.setStack(16, NumericBanners.EIGHT.getBannerItem(d2, d1));
+                            e.inventory.setStack(17, NumericBanners.FIVE.getBannerItem(d2, d1));
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        return 1;
+                    })
+        );
     }
 
     private int showHud(World w) {

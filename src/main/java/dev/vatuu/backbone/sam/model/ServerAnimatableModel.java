@@ -1,6 +1,5 @@
 package dev.vatuu.backbone.sam.model;
 
-import dev.vatuu.backbone.sam.model.ModelBone;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;

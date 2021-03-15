@@ -13,7 +13,8 @@
   "mixins": [
     "backbone.mixins.json",
     "events.mixins.json",
-    "meta.mixins.json"
+    "meta.entities.mixins.json",
+    "meta.items.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.11.1",

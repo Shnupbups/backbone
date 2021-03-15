@@ -2,10 +2,8 @@ package dev.vatuu.backbone.hud;
 
 import dev.vatuu.backbone.managers.BossbarManager;
 import net.minecraft.entity.boss.BossBar;
-import net.minecraft.entity.boss.BossBarManager;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 

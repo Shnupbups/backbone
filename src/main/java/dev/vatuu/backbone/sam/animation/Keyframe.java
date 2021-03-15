@@ -3,7 +3,6 @@ package dev.vatuu.backbone.sam.animation;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.vatuu.backbone.sam.model.BoneTransformation;
-import net.minecraft.client.render.GameRenderer;
 
 import java.util.Map;
 

@@ -1,56 +1,30 @@
 package dev.vatuu.backbone.item.meta;
 
-import dev.vatuu.backbone.item.ItemTags;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.util.DyeColor;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-public class BannerItemMeta extends ItemMeta {
+public interface BannerItemMeta extends ItemMeta<BannerItemMeta> {
 
-    private final Map<BannerPattern, DyeColor> patterns = new HashMap<>();
+    List<Pair<BannerPattern, DyeColor>> getPatterns();
 
-    @Override
-    protected CompoundTag createTag() {
-        CompoundTag soFar = super.createTag();
+    BannerItemMeta setPattern(List<Pair<BannerPattern, DyeColor>> patterns);
 
-        ListTag patterns = createPatternTag();
-        if(patterns != null)
-            soFar.put(ItemTags.PATTERN_ROOT, patterns);
+    BannerItemMeta addPattern(BannerPattern pattern, DyeColor color);
 
-        return soFar;
-    }
+    BannerItemMeta insertPattern(int index, BannerPattern pattern, DyeColor color);
 
-    private ListTag createPatternTag() {
-        ListTag pats = new ListTag();
-        patterns.forEach((p, c) -> {
-            CompoundTag entry = new CompoundTag();
-            entry.putString(ItemTags.PATTERN_ENTRY, p.getId());
-            entry.putInt(ItemTags.PATTERN_COLOR, c.getId());
-            pats.add(entry);
-        });
+    BannerItemMeta removePattern(int index);
 
-        return pats.isEmpty() ? null : pats;
-    }
+    static BannerPattern patternById(String id) {
+        for(BannerPattern b : BannerPattern.values())
+            if(b.getId().equals(id))
+                return b;
 
-    public static class Builder extends ItemMeta.Builder {
-
-        protected Builder() {
-            super(Items.WHITE_BANNER);
-            this.meta = new BannerItemMeta();
-        }
-
-        public static Builder create() {
-            return new Builder();
-        }
-
-        public Builder addPattern(BannerPattern pattern, DyeColor color) {
-            ((BannerItemMeta)meta).patterns.put(pattern, color);
-            return this;
-        }
+        return null;
     }
 }
+
+
