@@ -72,10 +72,6 @@ public class EnchantmentEvents {
 			return output;
 		}
 
-		public void setOutput(ItemStack output) {
-			this.output = output;
-		}
-
 		public List<EnchantmentLevelEntry> getEnchantmentsToAdd() {
 			return enchantmentsToAdd;
 		}
@@ -176,8 +172,8 @@ public class EnchantmentEvents {
 		}
 
 		@Override
-		public void cancel() {
-			this.cancelled = true;
+		public void setCancelled(boolean cancelled) {
+			this.cancelled = cancelled;
 		}
 	}
 

@@ -6,6 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.vatuu.backbone.events.EnchantmentEvents;
 import dev.vatuu.backbone.gambit.hud.GambitHUD;
 import dev.vatuu.backbone.gamestate.GamestateManager;
+import dev.vatuu.backbone.item.meta.impl.BannerItemMetaImpl;
 import dev.vatuu.backbone.managers.BossbarManager;
 import dev.vatuu.backbone.entity.meta.EndCrystalEntityMeta;
 import dev.vatuu.backbone.entity.meta.base.EntityMeta;
@@ -24,10 +25,13 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.entity.passive.PigEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -61,11 +65,13 @@ public class Backbone implements DedicatedServerModInitializer {
         CommandRegistrationCallback.EVENT.register(this::registerTestCommands);
         EnchantmentEvents.ENCHANT_ITEM.register((info) -> {
             if(info.getButtonId() == 2 && info.isEnchantmentBeingAdded(Enchantments.FORTUNE)) {
+                info.getEnchanter().sendMessage(new LiteralText("no fortune for you haha"), true);
                 info.cancel();
             } else if(info.isEnchantmentBeingAdded(Enchantments.UNBREAKING, 3)) {
                 info.removeEnchantment(Enchantments.UNBREAKING);
                 info.addEnchantment(Enchantments.MENDING, 1);
             } else {
+                info.getEnchanter().sendMessage(new LiteralText(info.getInput().toString()), false);
                 info.addEnchantment(Enchantments.AQUA_AFFINITY, 10);
                 info.setCost(12);
             }
